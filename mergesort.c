@@ -1,17 +1,17 @@
 #include<stdio.h>
-int length(int a[])
-{ int i,count = 0;
-  for(i=0;a[i]!='\0';i++)
-  count++;
-  return count;
+#include<malloc.h>
+int length(int arr[])
+{
+  int length;
+  length = sizeof(arr)/sizeof(arr[0]);
+  return length;
 }
 
 void merge(int l[],int r[],int a[])
 {
-  int nl,nr;
+  int nl = length(l);
+  int nr = length(r);
   int i=0,j=0,k=0;
-  nl=length(l);
-  nr=length(r);
   while(i<nl&&j<nr)
   {
     if(l[i]<=r[j])
@@ -41,29 +41,37 @@ void merge(int l[],int r[],int a[])
   }
 }
 
-void mergeSort(int a[])
+void mergeSort(int a[],int mid)
 {
-  int i,mid,left[10],right[10];
+  int n,i;
+  int *l,*r;
+
+  n = length(a);
+  if(n<2)
+   return;
+
   mid = n/2;
+  l = (int*)malloc(mid*sizeof(int));
+  r = (int*)malloc((n-mid)*sizeof(int));
   for(i=0;i<mid;i++)
-  left[i]=a[i];
+  l[i]=a[i];
   for(i=mid;i<n-1;i++)
-  right[i-mid]=a[i];
-  mergeSort(left);
-  mergeSort(right);
-  merge(left,right,a);
+  r[i-mid]=a[i];
+  mergeSort(l,length(l));
+  mergeSort(r,length(r));
+  merge(l,r,a);
 }
 
 
 
-void print(int a[],int n)
-{
+void print(int a[])
+{ int n = length(a);
   for(int i =0;i<n;i++)
   printf("%d \t",a[i]);
 }
 void main()
 {
   int b[]={15,43,12,17,2};
-  mergeSort(b);
-  print(b,5);
+  mergeSort(b,length(b));
+  print(b);
 }
