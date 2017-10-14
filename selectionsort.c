@@ -1,4 +1,4 @@
-z#include<stdio.h>
+#include<stdio.h>
 void swap(int *x,int *y)
 {
   int temp = *xp;

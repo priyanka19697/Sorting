@@ -2,9 +2,10 @@
 #include<malloc.h>
 int length(int arr[])
 {
-  int length;
-  length = sizeof(arr)/sizeof(arr[0]);
-  return length;
+  int count=0;
+    for(int i=0;arr[i]!='\0';i++)
+      count++;
+    return count;
 }
 
 void merge(int l[],int r[],int a[])
@@ -47,7 +48,7 @@ void mergeSort(int a[],int mid)
   int *l,*r;
 
   n = length(a);
-  if(n<2)
+  if(n<2) //when array cant be divided any furthur
    return;
 
   mid = n/2;
@@ -57,8 +58,8 @@ void mergeSort(int a[],int mid)
   l[i]=a[i];
   for(i=mid;i<n-1;i++)
   r[i-mid]=a[i];
-  mergeSort(l,length(l));
-  mergeSort(r,length(r));
+  mergeSort(l,mid);
+  mergeSort(r,n-mid);
   merge(l,r,a);
 }
 
